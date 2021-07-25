@@ -1,4 +1,5 @@
 <div class="container">
+    {{> nav-bar }}
     <h1 class="display-4">Registar producto</h1>
     <form action="http://localhost:8080/api/productos/guardar" method="POST" enctype="multipart/form-data" id="product-form">
         <div class="form-group mb-3">
@@ -18,9 +19,6 @@
         </div>
         <button type="submit" class="btn btn-primary mb-3">Registrar</button>
     </form>
-    <div id="datos">
-        {{> tabla-productos }}
-    </div>
     {{> centro-mensajes }}
 </div>
 <script src="/socket.io/socket.io.js"></script>

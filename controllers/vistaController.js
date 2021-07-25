@@ -1,7 +1,4 @@
-const faker = require('faker');
 const Producto = require('../models/producto');
-
-faker.locale = 'es';
 
 const productosVista = async (req, res) => {
 	try {
@@ -23,32 +20,7 @@ const productosRegistrar = async (req, res) => {
 	}
 };
 
-const productosVistaTest = (req, res) => {
-	try {
-		const cantidad = Number(req.query.cant) === 0 ? 0 : Number(req.query.cant) || 10;
-		const lista = [];
-		for (let i = 0; i < cantidad; i++) {
-			const fakeProduct = {
-				title: faker.commerce.productName,
-				price: faker.commerce.price,
-				thumbnail: faker.image.image
-			};
-			lista.push(fakeProduct);
-		}
-		if (!lista.length) throw Error();
-		res.render('productos-vista', { lista: lista, existe: true });
-	} catch (err) {
-		res.render('productos-vista', { lista: [], existe: false });
-	}
-};
-
-const registrarGraphql = (req, res) => {
-	res.render('ingreso-productos-graphql');
-}
-
 module.exports = {
 	productosVista,
 	productosRegistrar,
-	productosVistaTest,
-	registrarGraphql
 };

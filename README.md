@@ -1,10 +1,7 @@
-# API REST Y API GRAPHQL JUNTOS
+# ESQUEMA API RESTful
 
 >> Consigna:
 
-Continuando con el trabajo sobre el servidor del último entregable, cambiar los métodos GET y POST de la API REST de ingreso de productos, por los query y mutations necesarios para implementarlos utilizando la interface GraphQL en la ruta /graphql. Los métodos PUT y DELETE quedarán bajo el control de la API REST y seguirán siendo
-funcionales, comprobando así, que en el proyecto puedan convivir escenarios API REST con
-API GraphQL.
+Revisar en forma completa el proyecto entregable que venimos realizando, refactorizando y reformando todo lo necesario para llegar al esquema de servidor API RESTful en capas planteado en esta clase.
 
-Realizar el ingreso de un producto y el listado total a través de la interface 'graphiql' y verificar
-los datos recibidos desde el backend.
+➔ No hace falta realizar una aplicación front React.JS, sólo dejar al servidor bien estructurado con su ruteo / controlador, negocio, validaciones, persistencia y configuraciones, preferentemente utilizando en la codificación clases de ECMAScript ó Typescript.

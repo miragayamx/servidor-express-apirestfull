@@ -1,25 +1,23 @@
-const express = require("express");
-const passport = require("passport");
-const loginController = require("../controllers/loginController");
+const express = require('express');
+const passport = require('passport');
+const loginController = require('../controllers/loginController');
 
 const router = express.Router();
 
 router
-  .route("/login")
-  .get(loginController.facebookLogin)
-  .post(
-    passport.authenticate("facebook")
-  );
-router.get("/faillogin", loginController.failLogin);
+	.route('/login')
+	.get(loginController.login)
+	.post(passport.authenticate('login', { failureRedirect: '/faillogin' }));
 
-router.get("/logout", loginController.facebookLogout);
+router.get('/faillogin', loginController.failLogin);
 
-router.get(
-  "/login/callback",
-  passport.authenticate("facebook", {
-    successRedirect: "/login",
-    failureRedirect: "/faillogin",
-  })
-);
+router.get('/logout', loginController.logout);
+
+router
+	.route('/signup')
+	.get(loginController.signUp)
+	.post(passport.authenticate('signup', { failureRedirect: '/failsignup' }), loginController.postLogin);
+
+router.get('/failsignup', loginController.failSingUp);
 
 module.exports = router;

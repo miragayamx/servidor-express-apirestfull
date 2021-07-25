@@ -14,6 +14,10 @@
             <td>{{this.title}}</td>
             <td>${{this.price}}</td>
             <td><img height="80" src={{this.thumbnail}} alt="#"></td>
+            <td>
+                <button type="button" class="btn btn-primary"
+                    onclick="removerItem('{{this._id}}')">Remover</button>
+            </td>
         </tr>
         {{/each}}
     </tbody>
@@ -23,3 +27,10 @@
     No se encontraron productos
 </div>
 {{/if}}
+<script>
+    async function removerItem(id) {
+        await fetch(`/api/productos/borrar/${id}`, {
+            method: 'DELETE',
+        }).then(res => location.href = '/home')
+    }
+</script>
