@@ -15,7 +15,7 @@ const loginRouter = require('./routes/loginRouter');
 const { createUploadsFolder } = require('./utils/fileManager');
 const chatSocket = require('./sockets/chatSocket');
 const env = require('./config');
-require('./db/mongoose');
+//require('./db/mongoose');
 require('./passport/passport');
 
 app.use(
