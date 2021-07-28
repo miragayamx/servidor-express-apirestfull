@@ -12,9 +12,8 @@ const handlebars = require('express-handlebars');
 const productRouter = require('./routes/productRouter');
 const vistaRouter = require('./routes/vistaRouter');
 const loginRouter = require('./routes/loginRouter');
-const Mensaje = require('./models/mensaje');
-const { createUploadsFolder, createDBLiteFolder, readFile, saveFile, appendFile } = require('./utils/fileManager');
-const sendSMS = require('./services/twilio');
+const { createUploadsFolder } = require('./utils/fileManager');
+const chatSocket = require('./sockets/chatSocket');
 const env = require('./config');
 require('./db/mongoose');
 require('./passport/passport');
@@ -60,39 +59,7 @@ app.use('/api', productRouter);
 const PORT = env.PORT || 8080;
 
 //SOCKET
-io.on('connection', (socket) => {
-	//CHAT
-	(async () => {})();
-	socket.on('getChatMessages', async () => {
-		try {
-			const messages = await Mensaje.find();
-			if (!messages.length) throw new Error('ENOENT');
-			io.emit('messages', messages);
-		} catch (err) {
-			if (err.message === 'ENOENT') return io.emit('chatInfo', { info: 'No se encontraron mensajes' });
-			io.emit('chatInfo', { error: 'No fue posible recuperar los mensajes' });
-		}
-	});
-	socket.on('setNewChatMessages', async (message) => {
-		try {
-			const data = await Mensaje.find();
-			let messages = [];
-			if (!!data.length) messages = data;
-			const messageWithDate = {
-				...message,
-				date: new Date().toLocaleString('es-AR')
-			};
-			const newMessage = new Mensaje(messageWithDate);
-			await newMessage.save();
-			messages.push(messageWithDate);
-			if (message.message.includes('administrador'))
-				sendSMS({ message: `email: ${message.email} mensaje: ${message.message}`, phone: '+541151111242' });
-			io.emit('messages', messages);
-		} catch (err) {
-			io.emit('chatInfo', { error: 'No fue posible recuperar los mensajes' });
-		}
-	});
-});
+chatSocket(io);
 
 const server = http.listen(PORT, async () => {
 	try {
