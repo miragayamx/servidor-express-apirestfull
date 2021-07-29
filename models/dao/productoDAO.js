@@ -1,10 +1,10 @@
-const Producto = require("./producto");
-const productoDTO = require("./productoDTO");
-require("./mongoConnect");
+const Producto = require("../producto");
+const productoDTO = require("../dto/productoDTO");
+require("../mongoConnect");
 
-const getAll = async () => {
+const getAll = async (filter = {}) => {
   try {
-    return await Producto.find().lean();
+    return await Producto.find(filter).lean();
   } catch (err) {
     throw err;
   }
@@ -27,7 +27,7 @@ const addOne = async (item) => {
   }
 };
 
-const updateById = (id, item) => {
+const updateById = async (id, item) => {
   try {
     await Producto.findByIdAndUpdate(id, productoDTO(item));
   } catch (err) {
@@ -35,7 +35,7 @@ const updateById = (id, item) => {
   }
 };
 
-const deleteById = (id) => {
+const deleteById = async (id) => {
   try {
     const item = await Producto.findById(id);
     await item.remove();

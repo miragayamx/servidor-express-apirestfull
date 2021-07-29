@@ -1,10 +1,10 @@
-const Mensaje = require("./mensaje");
-const mensajeDTO = require("./mensajeDTO");
-require("./mongoConnect");
+const Mensaje = require("../mensaje");
+const mensajeDTO = require("../dto/mensajeDTO");
+require("../mongoConnect");
 
-const getAll = async () => {
+const getAll = async (filter = {}) => {
   try {
-    return await Mensaje.find().lean();
+    return await Mensaje.find(filter).lean();
   } catch (err) {
     throw err;
   }
@@ -27,7 +27,7 @@ const addOne = async (item) => {
   }
 };
 
-const updateById = (id, item) => {
+const updateById = async (id, item) => {
   try {
     await Mensaje.findByIdAndUpdate(id, mensajeDTO(item));
   } catch (err) {
@@ -35,7 +35,7 @@ const updateById = (id, item) => {
   }
 };
 
-const deleteById = (id) => {
+const deleteById = async (id) => {
   try {
     const item = await Mensaje.findById(id);
     await item.remove();

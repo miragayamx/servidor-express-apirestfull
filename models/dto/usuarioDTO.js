@@ -3,3 +3,5 @@ const usuarioDTO = ({ username, password, passwordConfirm }) => ({
   password,
   passwordConfirm,
 });
+
+module.exports = usuarioDTO;

@@ -1,10 +1,10 @@
-const Usuario = require("./usuario");
-const usuarioDTO = require("./usuarioDTO");
-require('./mongoConnect');
+const Usuario = require("../usuario");
+const usuarioDTO = require("../dto/usuarioDTO");
+require('../mongoConnect');
 
-const getAll = async () => {
+const getAll = async (filter = {}) => {
     try {
-      return await Usuario.find().lean();
+      return await Usuario.find(filter).lean();
     } catch (err) {
       throw err;
     }
@@ -27,7 +27,7 @@ const getAll = async () => {
     }
   };
   
-  const updateById = (id, item) => {
+  const updateById = async (id, item) => {
     try {
       await Usuario.findByIdAndUpdate(id, usuarioDTO(item));
     } catch (err) {
@@ -35,7 +35,7 @@ const getAll = async () => {
     }
   };
   
-  const deleteById = (id) => {
+  const deleteById = async (id) => {
     try {
       const item = await Usuario.findById(id);
       await item.remove();
@@ -43,6 +43,15 @@ const getAll = async () => {
       throw err;
     }
   };
+
+  const correctPassword = async (password, userId) => {
+    try {
+      const item = await Usuario.findById(userId);
+      item.correctPassword(password, item.password)
+    } catch (err) {
+      throw err;
+    }
+  }
   
   module.exports = {
     getAll,
@@ -50,4 +59,5 @@ const getAll = async () => {
     addOne,
     updateById,
     deleteById,
+    correctPassword
   };

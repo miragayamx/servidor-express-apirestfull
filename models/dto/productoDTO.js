@@ -3,3 +3,5 @@ const productoDTO = ({ title, price, thumbnail }) => ({
   price,
   thumbnail,
 });
+
+module.exports = productoDTO;

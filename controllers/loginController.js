@@ -1,8 +1,10 @@
-const Producto = require('../models/producto');
+// const Producto = require('../models/producto');
+const productoDao = require('../models/dao/productoDAO');
 
 const login = async (req, res) => {
 	try {
-		const lista = await Producto.find().lean();
+		//const lista = await Producto.find().lean();
+		const lista = await productoDao.getAll();
 		if (!lista.length) throw Error();
 		res.render('login', { user: req.user ? req.user.userName : null, lista: lista, existe: true });
 	} catch (err) {

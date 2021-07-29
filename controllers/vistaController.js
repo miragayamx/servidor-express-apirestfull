@@ -1,8 +1,10 @@
-const Producto = require('../models/producto');
+//const Producto = require('../models/producto');
+const productoDao = require("../models/dao/productoDAO");
 
 const productosVista = async (req, res) => {
 	try {
-		const lista = await Producto.find().lean();
+		//const lista = await Producto.find().lean();
+		const lista = await productoDao.getAll();
 		if (!lista.length) throw Error();
 		res.render('productos-vista', { lista: lista, existe: true });
 	} catch (err) {
@@ -12,7 +14,8 @@ const productosVista = async (req, res) => {
 
 const productosRegistrar = async (req, res) => {
 	try {
-		const lista = await Producto.find().lean();
+		//const lista = await Producto.find().lean();
+		const lista = await productoDao.getAll();
 		if (!lista.length) throw Error();
 		res.render('ingreso-producto', { lista: lista, existe: true });
 	} catch (err) {

@@ -4,7 +4,7 @@ const env = require("../config");
 
 let db;
 
-export const mongoConnect = () => {
+const mongoConnect = () => {
   return new Promise(async (resolve, reject) => {
     try {
       if (db) {
