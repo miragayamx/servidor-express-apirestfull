@@ -1,9 +1,7 @@
-// const Producto = require('../models/producto');
 const productoDao = require('../models/dao/productoDAO');
 
 const login = async (req, res) => {
 	try {
-		//const lista = await Producto.find().lean();
 		const lista = await productoDao.getAll();
 		if (!lista.length) throw Error();
 		res.render('login', { user: req.user ? req.user.userName : null, lista: lista, existe: true });
@@ -24,11 +22,7 @@ const logout = (req, res) => {
 };
 
 const postLogin = async (req, res) => {
-	try {
-		res.redirect('/login');
-	} catch (err) {
-		res.status(404).json({ error: err.message });
-	}
+	res.status(200).json({ user: req.user ? req.username : null });
 };
 
 const failLogin = (req, res) => {

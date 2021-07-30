@@ -24,3 +24,23 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <script src="/socket-script.js"></script>
+<script>
+    document.getElementById('product-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const { title, price, thumbnail } = event.target;
+        const formData = new FormData();
+        formData.append("title", title.value);
+        formData.append("price", price.value);
+        formData.append("thumbnail", thumbnail.files[0]);
+        fetch("/api/productos/guardar", {
+            method: "POST",
+            body: formData
+        })
+            .then(() => {
+                location.href = '/home';
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    })
+</script>

@@ -21,7 +21,6 @@ const chatSocket = (io) => {
         if (!!data.length) messages = data;
         const messageWithDate = {
           ...message,
-          //date: new Date().toLocaleString("es-AR"),
           date: new Date(),
         };
         const newMessage = new Mensaje(messageWithDate);

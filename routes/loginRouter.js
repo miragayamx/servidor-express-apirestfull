@@ -7,7 +7,7 @@ const router = express.Router();
 router
 	.route('/login')
 	.get(loginController.login)
-	.post(passport.authenticate('login', { failureRedirect: '/faillogin' }));
+	.post(passport.authenticate('login', { successRedirect: '/home', failureRedirect: '/faillogin' }), loginController.postLogin);
 
 router.get('/faillogin', loginController.failLogin);
 
@@ -16,7 +16,7 @@ router.get('/logout', loginController.logout);
 router
 	.route('/signup')
 	.get(loginController.signUp)
-	.post(passport.authenticate('signup', { failureRedirect: '/failsignup' }), loginController.postLogin);
+	.post(passport.authenticate('signup', { successRedirect: '/home', failureRedirect: '/failsignup' }));
 
 router.get('/failsignup', loginController.failSingUp);
 
